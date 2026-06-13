@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [claude/relaxed-euler-q6wcy6]
+    branches: [claude/trusting-shannon-7oqcqu, main]
   workflow_dispatch:
 
 permissions:
