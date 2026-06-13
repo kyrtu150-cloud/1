@@ -2,9 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - claude/trusting-shannon-7oqcqu
-      - main
+    branches: [claude/relaxed-euler-q6wcy6]
   workflow_dispatch:
 
 permissions:
@@ -12,10 +10,10 @@ permissions:
   pages: write
   id-token: write
 
-# Разрешаем один параллельный деплой, не отменяя уже идущий.
+# Один деплой за раз.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -28,29 +26,24 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install
-        run: npm ci
+      - run: npm ci
 
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v5
+      # base = "/<repo>/" чтобы ассеты грузились на project-странице Pages.
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+
+      # SPA-fallback: GitHub Pages отдаёт 404.html для неизвестных путей,
+      # копия index.html позволяет работать прямым ссылкам вроде /studio.
+      - name: SPA fallback
+        run: cp dist/index.html dist/404.html
+
+      - uses: actions/configure-pages@v5
         with:
-          # Автоматически включает Pages при первом запуске, если есть права.
           enablement: true
 
-      - name: Build
-        env:
-          # base-path для project pages = "/<repo>/", напр. "/1/"
-          VITE_BASE: /${{ github.event.repository.name }}/
-        run: npm run build
-
-      - name: SPA fallback + .nojekyll
-        run: |
-          cp dist/index.html dist/404.html
-          touch dist/.nojekyll
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -61,6 +54,5 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4

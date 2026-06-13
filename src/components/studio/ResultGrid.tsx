@@ -1,5 +1,5 @@
 import type { GeneratedAsset, GenerationProgress } from '@/lib/api/types'
-import SmartImg from '../common/SmartImg'
+import SafeImage from '../SafeImage'
 
 interface Props {
   assets: GeneratedAsset[]
@@ -59,11 +59,11 @@ export default function ResultGrid({ assets, progress, error, ratio, modeLabel }
           <figure className="result-card" key={a.id}>
             {a.kind === 'video' ? (
               <div className="result-card__video">
-                <SmartImg src={a.thumbnailUrl ?? a.url} seed={a.id} alt={a.prompt} />
+                <SafeImage src={a.thumbnailUrl ?? a.url} alt={a.prompt || 'Результат'} fallbackLabel={modeLabel} />
                 <span className="play">▶</span>
               </div>
             ) : (
-              <SmartImg src={a.url} seed={a.id} alt={a.prompt} />
+              <SafeImage src={a.url} alt={a.prompt || 'Результат'} fallbackLabel={modeLabel} loading="lazy" />
             )}
             <figcaption className="result-card__bar">
               <button className="mini" title="Скачать">↓</button>

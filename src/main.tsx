@@ -5,15 +5,13 @@ import './styles/global.css'
 import Landing from './components/landing/Landing'
 import Studio from './components/studio/Studio'
 
-// basename берётся из base сборки (для GitHub Pages — "/1"), локально — "/".
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
-
 const router = createBrowserRouter(
   [
     { path: '/', element: <Landing /> },
     { path: '/studio', element: <Studio /> },
   ],
-  { basename },
+  // basename подхватывается из base сборки: на GitHub Pages это "/1".
+  { basename: import.meta.env.BASE_URL.replace(/\/$/, '') },
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,5 +1,5 @@
 import { TOOLS } from '@/data/content'
-import SmartImg from '../common/SmartImg'
+import SafeImage from '../SafeImage'
 
 export default function Tools() {
   return (
@@ -22,7 +22,7 @@ export default function Tools() {
             >
               <div className="tool__media">
                 {(t.feature ? t.images.slice(0, 6) : t.images.slice(0, 3)).map((src, i) => (
-                  <SmartImg key={i} src={src} seed={`${t.id}${i}`} alt={`${t.title} — пример`} />
+                  <SafeImage key={i} src={src} alt={`${t.title} — пример`} fallbackLabel={t.title} loading="lazy" />
                 ))}
                 {t.badge && <span className="tool__badge mono">{t.badge}</span>}
               </div>

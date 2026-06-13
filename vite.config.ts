@@ -6,7 +6,8 @@ import { fileURLToPath, URL } from 'node:url'
 // База для GitHub Pages задаётся через VITE_BASE (напр. "/1/").
 // Локально остаётся "/", поэтому dev/preview работают без изменений.
 export default defineConfig({
-  base: process.env.VITE_BASE || '/',
+  // База задаётся через VITE_BASE (на GitHub Pages — "/1/"), локально — "/".
+  base: process.env.VITE_BASE ?? '/',
   plugins: [react()],
   resolve: {
     alias: {
