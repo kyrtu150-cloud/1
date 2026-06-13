@@ -20,7 +20,7 @@ const NICHE_TAGS = [
 export default function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="aurora" aria-hidden />
+      <div className="aurora" aria-hidden data-parallax="0.15" />
       <div className="container hero__inner">
         <div className="hero__copy">
           <span className="eyebrow hero__badge">
@@ -58,7 +58,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero__visual" aria-hidden>
+        <div className="hero__visual" aria-hidden data-parallax="0.04">
           <div className="hero__scanner" />
           <div className="hero__grid">
             {GRID.map((src, i) => (
