@@ -1,4 +1,5 @@
 import { NICHES } from '@/data/content'
+import SmartImg from '../common/SmartImg'
 
 export default function Niches() {
   return (
@@ -13,7 +14,7 @@ export default function Niches() {
         <div className="niches__row">
           {NICHES.map((n) => (
             <figure className="niche reveal" key={n.name}>
-              <img src={n.image} alt={n.name} loading="lazy" />
+              <SmartImg src={n.image} seed={n.name} alt={n.name} />
               <figcaption>
                 <span aria-hidden>{n.emoji}</span> {n.name}
               </figcaption>

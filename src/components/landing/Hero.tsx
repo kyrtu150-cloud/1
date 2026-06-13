@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SHOWCASE } from '@/data/showcase'
+import SmartImg from '../common/SmartImg'
 
 // Сетка реальных примеров генераций вместо тяжёлой galaxy-анимации.
 const GRID = [
@@ -47,7 +48,7 @@ export default function Hero() {
           <div className="hero__grid">
             {GRID.map((src, i) => (
               <figure className="hero__cell" key={i} style={{ animationDelay: `${i * 0.12}s` }}>
-                <img src={src} alt="" loading="eager" />
+                <SmartImg src={src} seed={`hero${i}`} loading="eager" />
               </figure>
             ))}
           </div>
